@@ -122,3 +122,52 @@ scene.setBackgroundImage(img`
     d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
     d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
 `)
+//  Game info(lives, score, win condition)
+info.setScore(0)
+info.setLife(3)
+info.setBorderColor(1)
+info.setLifeImage(img`
+    . . . f . . . f . . .
+    . . f 2 f . f 2 f . .
+    . f 2 2 2 f 2 1 2 f .
+    f 2 2 2 2 2 2 2 1 2 f
+    f 2 2 2 2 2 2 2 2 2 f
+    . f 2 2 2 2 2 2 2 f .
+    . . f 2 2 2 2 2 f . .
+    . . . f 2 2 2 f . . .
+    . . . . f 2 f . . . .
+    . . . . . f . . . . .
+`)
+//  Player creation
+let hero = sprites.create(img`
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . e e e e . . . . . d d d . . . .
+    . . . . . . . . . . . . . . 1 1 . e e . . . . e d d . . . .
+    . . . . . . . . . . 1 5 5 5 5 . 1 . e e e . . e e d . . . .
+    . . . . . . . . . 1 5 5 5 5 5 . . 1 . . e e e e . . . . . .
+    . . . . . . . . 1 5 5 5 5 4 4 . . . 1 . . e e 4 . . . . . .
+    . . . . . . . . 1 5 5 5 5 4 f . . . . e e . 4 e 4 . . . . .
+    . . . . . . . . 1 5 5 5 5 4 4 . 4 4 e . 1 4 4 4 e e . . . .
+    . . . . . . . . . 1 1 5 4 4 . 4 4 4 . . 4 4 4 . . e e . . .
+    . . . . . . . . . . 4 4 4 . 4 4 4 . . 4 4 4 1 . . . e . . .
+    . . . . . . . . 7 7 4 4 4 7 7 4 . . 4 4 4 . . 1 . . e e . .
+    . . . . . . . 7 7 7 7 7 7 7 7 7 . 4 4 4 . . . . 1 . . e . .
+    . . . . . . . 7 7 7 7 7 7 7 7 7 7 4 4 . . . . . . 1 . e . .
+    . . . . . . . . 7 7 7 7 7 7 7 7 7 4 . . . . . . . . 1 e . .
+    . . . . . . . . . 7 7 7 7 7 . . . . . . . . . . . . 1 e . .
+    . . . . . . . . . 7 7 7 7 7 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 7 7 7 7 7 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 7 7 7 7 7 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 7 7 7 7 7 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 7 8 8 8 7 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 8 8 8 8 8 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 8 8 . 8 8 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 8 8 . 8 8 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 8 8 . 8 8 . . . . . . . . . . . . . . . .
+    . . . . . . . . . 8 8 . 8 8 . . . . . . . . . . . . . . . .
+    . . . . . . . . e 8 8 . 8 8 e . . . . . . . . . . . . . . .
+    . . . . . . . . e 8 8 . 8 8 e . . . . . . . . . . . . . . .
+    . . . . . . . . e 8 8 . 8 8 e . . . . . . . . . . . . . . .
+    . . . . . . . . . e e . e e . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+`)
