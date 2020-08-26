@@ -122,7 +122,9 @@ scene.set_background_image(img("""
     d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
     d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
 """))
-# Game info(lives, score, win condition)
+
+
+# Game info(lives, score)
 info.set_score(0)
 info.set_life(3)
 info.set_border_color(1)
@@ -138,6 +140,7 @@ info.set_life_image(img("""
     . . . . f 2 f . . . .
     . . . . . f . . . . .
 """))
+
 
 # Player creation
 hero = sprites.create(img("""
@@ -171,6 +174,8 @@ hero = sprites.create(img("""
     . e e . e e . . . . . . . . . . . . . .
 """))
 hero.set_position(80, 100)
+
+
 # Enemies creation
 def on_update_interval():
     snake = sprites.create(img("""
@@ -198,8 +203,9 @@ def on_update_interval():
     snake.set_position(randint(160,0),0)
     snake.set_velocity(0,25)
 game.on_update_interval(1250, on_update_interval)
-# Projectiles and upgrades
 
+
+# Projectiles and upgrades
 def on_button_event_a_pressed():
     arrow1 = sprites.create_projectile_from_sprite(img("""    . d .
     d d d
@@ -209,6 +215,11 @@ def on_button_event_a_pressed():
     1 . 1
     """), hero, 0,-35)
 controller.player1.on_button_event(ControllerButton.A, ControllerButtonEvent.PRESSED, on_button_event_a_pressed)
+
+
 # Controls 
 controller.move_sprite(hero,220,0)
 hero.set_flag(SpriteFlag.StayInScreen, True)
+
+
+# Game 
