@@ -171,8 +171,9 @@ hero = sprites.create(img("""
     . . . . . . . . . e e . e e . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 """))
+hero.set_position(80, 100)
 # Enemies creation
 
 # Projectiles and upgrades
 
-
+# Controls 

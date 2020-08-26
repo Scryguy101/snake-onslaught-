@@ -171,3 +171,4 @@ let hero = sprites.create(img`
     . . . . . . . . . e e . e e . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 `)
+hero.setPosition(80, 100)
