@@ -14,9 +14,8 @@ def on_player1_button_a_pressed():
         0,
         -35)
 controller.player1.on_button_event(ControllerButton.A,
-    ControllerButtonEvent.PRESSED,
-    on_player1_button_a_pressed)
-
+    ControllerButtonEvent.PRESSED,on_player1_button_a_pressed)
+# fix this part
 def on_on_overlap(sprite, otherSprite):
     snake.destroy()
     arrow1.destroy()
@@ -232,3 +231,4 @@ def on_update_interval():
     snake.set_position(randint(160, 0), 0)
     snake.set_velocity(0, 25)
 game.on_update_interval(1250, on_update_interval)
+# b

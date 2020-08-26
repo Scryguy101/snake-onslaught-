@@ -10,6 +10,7 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
                     1 . 1
         `, hero, 0, -35)
 })
+//  fix this part
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
     snake.destroy()
     arrow1.destroy()
