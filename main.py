@@ -20,7 +20,6 @@ controller.player1.on_button_event(ControllerButton.A,
 def on_on_overlap(sprite, otherSprite):
     snake.destroy()
     arrow1.destroy()
-    info.change_score_by(1)
 sprites.on_overlap(SpriteKind.projectile, SpriteKind.enemy, on_on_overlap)
 
 snake: Sprite = None
@@ -232,3 +231,8 @@ def on_update_interval():
     snake.set_position(randint(160, 0), 0)
     snake.set_velocity(0, 25)
 game.on_update_interval(1250, on_update_interval)
+
+# adding score 
+def on_destroyed(sprite):
+    info.change_score_by(1)
+sprites.on_destroyed(SpriteKind.player, on_destroyed)

@@ -13,7 +13,6 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
     snake.destroy()
     arrow1.destroy()
-    info.changeScoreBy(1)
 })
 let snake : Sprite = null
 let arrow1 : Sprite = null
@@ -220,4 +219,8 @@ game.onUpdateInterval(1250, function on_update_interval() {
         `, SpriteKind.Enemy)
     snake.setPosition(randint(160, 0), 0)
     snake.setVelocity(0, 25)
+})
+//  adding score 
+sprites.onDestroyed(SpriteKind.Player, function on_destroyed(sprite: Sprite) {
+    info.changeScoreBy(1)
 })
