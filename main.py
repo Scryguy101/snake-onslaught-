@@ -1,7 +1,6 @@
 # Projectiles and upgrades
 
 def on_player1_button_a_pressed():
-    global arrow1
     arrow1 = sprites.create_projectile_from_sprite(img("""
             . d . 
                     d d d 
@@ -10,20 +9,18 @@ def on_player1_button_a_pressed():
                     . e . 
                     1 . 1
         """),
-        hero,
-        0,
-        -35)
+        hero,0,-35)
 controller.player1.on_button_event(ControllerButton.A,
     ControllerButtonEvent.PRESSED,
     on_player1_button_a_pressed)
 
 def on_on_overlap(sprite, otherSprite):
-    snake.destroy()
-    arrow1.destroy()
+    sprite.destroy()
+    otherSprite.destroy()
+    info.change_score_by(1)
 sprites.on_overlap(SpriteKind.projectile, SpriteKind.enemy, on_on_overlap)
 
-snake: Sprite = None
-arrow1: Sprite = None
+
 hero: Sprite = None
 # Scene creation
 scene.set_background_color(6)
@@ -204,7 +201,6 @@ hero.set_flag(SpriteFlag.STAY_IN_SCREEN, True)
 # Enemies creation
 
 def on_update_interval():
-    global snake
     snake = sprites.create(img("""
             . . . . . . . . . . . . f 5 . . . . . . 
                     . . . . . . . . . . f f 5 f . . . . . . 
@@ -233,6 +229,6 @@ def on_update_interval():
 game.on_update_interval(1250, on_update_interval)
 
 # adding score 
-def on_destroyed(sprite):
-    info.change_score_by(1)
-sprites.on_destroyed(SpriteKind.player, on_destroyed)
+# def on_destroyed(sprite):
+#     # info.change_score_by(1)
+# sprites.on_destroyed(SpriteKind.enemy, on_destroyed)

@@ -1,7 +1,6 @@
 //  Projectiles and upgrades
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function on_player1_button_a_pressed() {
-    
-    arrow1 = sprites.createProjectileFromSprite(img`
+    let arrow1 = sprites.createProjectileFromSprite(img`
             . d . 
                     d d d 
                     . e . 
@@ -11,11 +10,10 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         `, hero, 0, -35)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
-    snake.destroy()
-    arrow1.destroy()
+    sprite.destroy()
+    otherSprite.destroy()
+    info.changeScoreBy(1)
 })
-let snake : Sprite = null
-let arrow1 : Sprite = null
 let hero : Sprite = null
 //  Scene creation
 scene.setBackgroundColor(6)
@@ -194,8 +192,7 @@ controller.moveSprite(hero, 220, 0)
 hero.setFlag(SpriteFlag.StayInScreen, true)
 //  Enemies creation
 game.onUpdateInterval(1250, function on_update_interval() {
-    
-    snake = sprites.create(img`
+    let snake = sprites.create(img`
             . . . . . . . . . . . . f 5 . . . . . . 
                     . . . . . . . . . . f f 5 f . . . . . . 
                     . . . . . . . . . f f 5 f . . . . . . . 
@@ -219,8 +216,4 @@ game.onUpdateInterval(1250, function on_update_interval() {
         `, SpriteKind.Enemy)
     snake.setPosition(randint(160, 0), 0)
     snake.setVelocity(0, 25)
-})
-//  adding score 
-sprites.onDestroyed(SpriteKind.Player, function on_destroyed(sprite: Sprite) {
-    info.changeScoreBy(1)
 })
