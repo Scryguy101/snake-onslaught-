@@ -1,14 +1,72 @@
-# Projectiles and upgrades
-
-def on_player1_button_a_pressed():
-    arrow1 = sprites.create_projectile_from_sprite(img("""
-            . d . 
+arrow_img_sm = img("""
+               . d . 
                     d d d 
                     . e . 
                     . e . 
                     . e . 
                     1 . 1
-        """),
+""")
+arrow_img_lg = img("""
+    . . . d . . .
+    . . d d d . .
+    . d d d d d .
+    . . . e . . .
+    . . . e . . .
+    . . . e . . .
+    . . . e . . .
+    . . . e . . .
+    . . 1 . 1 . .
+    . 1 . . . 1 .
+    . . . . . . .
+    . . . . . . .
+""")
+arrow_img_xl = img("""
+    . . . . . . d . . . . . .
+    . . . . . d d d . . . . .
+    . . . . d d f d d . . . .
+    . . . d d f . f d d . . .
+    . . . . d d f d d . . . .
+    . . . . . d d d . . . . .
+    . . . . . . d . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . 1 e 1 . . . . .
+    . . . . 1 b e b 1 . . . .
+    . . . 1 b . . . b 1 . . .
+    . . 1 b . . . . . b 1 . .
+""")
+arrow_img_final = img("""
+    . . . . . . . . . . 5 . . . . . . . . . .
+    . . . . . . . . . 5 f 5 . . . . . . . . .
+    . . . . . . . . 5 f . f 5 . . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . . 5 f . f 5 . . . . . . . .
+    . . . . . . . . . 5 f 5 . . . . . . . . .
+    . . . . . . . . . e 5 e . . . . . . . . .
+    . . . . . . . . . e e e . . . . . . . . .
+    . . . . . . . . . e 2 e . . . . . . . . .
+    . . . . . . . . . 2 7 2 . . . . . . . . .
+    . . . . . . . . . e 2 e . . . . . . . . .
+    . . . . . . . . . e e e . . . . . . . . .
+    . . . . . . . . . e 2 e . . . . . . . . .
+    . . . . . . . . 1 2 7 2 1 . . . . . . . .
+    . . . . . . . 1 d e 2 e d 1 . . . . . . .
+    . . . . . . 1 d b e e e b d 1 . . . . . .
+    . . . . . 1 d b . . . . . b d 1 . . . . .
+    . . . . 1 d b . . . . . . . b d 1 . . . .
+    . . . 1 d b . . . . . . . . . b d 1 . . .
+    . . . . b . . . . . . . . . . . b . . . . """)
+
+# Projectiles and upgrades
+
+def on_player1_button_a_pressed():
+    arrow1 = sprites.create_projectile_from_sprite(arrow_img_sm,
         hero,0,-35)
 controller.player1.on_button_event(ControllerButton.A,
     ControllerButtonEvent.PRESSED,
@@ -21,7 +79,6 @@ def on_on_overlap(sprite, otherSprite):
 sprites.on_overlap(SpriteKind.projectile, SpriteKind.enemy, on_on_overlap)
 
 
-hero: Sprite = None
 # Scene creation
 scene.set_background_color(6)
 scene.set_background_image(img("""
@@ -164,36 +221,37 @@ info.set_life_image(img("""
 """))
 # Player creation
 hero = sprites.create(img("""
-        . . . . . . e e e e . . . . . d d d . . 
-            . . . . . . 1 1 . e e . . . . e d d . . 
-            . . 1 5 5 5 5 . 1 . e e e . . e e d . . 
-            . 1 5 5 5 5 5 . . 1 . . e e e e . . . . 
-            1 5 5 5 5 4 4 . . . 1 . . e e 4 . . . . 
-            1 5 5 5 5 4 f . . . . e e . 4 e 4 . . . 
-            1 5 5 5 5 4 4 . 4 4 e . 1 4 4 4 e e . . 
-            . 1 1 5 4 4 . 4 4 4 . . 4 4 4 . . e e . 
-            . . 4 4 4 . 4 4 4 . . 4 4 4 1 . . . e . 
-            7 7 4 4 4 7 7 4 . . 4 4 4 . . 1 . . e e 
-            7 7 7 7 7 7 7 7 . 4 4 4 . . . . 1 . . e 
-            7 7 7 7 7 7 7 7 7 4 4 . . . . . . 1 . e 
-            7 7 7 7 7 7 7 7 7 4 . . . . . . . . 1 e 
-            . 7 7 7 7 7 . . . . . . . . . . . . 1 e 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 8 8 8 7 . . . . . . . . . . . . . . 
-            . 8 8 8 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            e 8 8 . 8 8 e . . . . . . . . . . . . . 
-            e 8 8 . 8 8 e . . . . . . . . . . . . . 
-            e 8 8 . 8 8 e . . . . . . . . . . . . . 
-            . e e . e e . . . . . . . . . . . . . .
-    """),
-    SpriteKind.player)
+    . . . . . . . d d d d . . . . . 5 5 5 . . .
+    . . . . . . . 1 1 . d d . . . . 5 f 5 . . .
+    . . . 1 5 5 5 5 . 1 . d d d . e 5 5 5 . . .
+    . . 1 5 5 5 5 5 . . 1 . . d e e 2 . . . . .
+    . 1 5 5 5 5 4 4 . . . 1 . e e 2 4 . . . . .
+    . 1 5 5 5 5 4 f . . . . e e 2 4 d 4 . . . .
+    . 1 5 5 5 5 4 4 . 4 4 e 2 1 4 4 4 d d . . .
+    . . 1 1 5 4 4 . 4 4 4 . . 4 4 4 . . d d . .
+    . b b 4 4 4 b b 4 4 . . 4 4 4 1 . . . d . .
+    b d d 4 4 4 d d b . . 4 4 4 . . 1 . . d d .
+    b d d d d d d d d b 4 4 4 . . . . 1 . . d .
+    b d d d 2 d d d d d b 4 . . . . . . 1 . d .
+    . b d 2 5 2 d d d d b . . . . . . . . 1 d .
+    . b 2 5 5 5 2 b b b . . . . . . . . . 1 d .
+    . b d 2 5 2 d b . . . . . . . . . . . . . .
+    . b d d 2 d d b . . . . . . . . . . . . . .
+    . b d d d d d b . . . . . . . . . . . . . .
+    . b d d d d d b . . . . . . . . . . . . . .
+    . b d b b b d b . . . . . . . . . . . . . .
+    . c b b b b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    c d b b c b b d c . . . . . . . . . . . . .
+    c d b b c b b d c . . . . . . . . . . . . .
+    c d b b c b b d c . . . . . . . . . . . . .
+    . c d d c d d c . . . . . . . . . . . . . .
+    . . c c . c c . . . . . . . . . . . . . . .
+"""),SpriteKind.player)
 hero.set_position(80, 100)
 # Controls
 controller.move_sprite(hero, 220, 0)
@@ -224,11 +282,32 @@ def on_update_interval():
                     . . . . . . . . . . . . . . . . . . . .
         """),
         SpriteKind.enemy)
-    snake.set_position(randint(160, 0), 0)
-    snake.set_velocity(0, 25)
+    snake.set_position(randint(152, 8), 0)
+    snake.set_velocity(0, 28)
 game.on_update_interval(1250, on_update_interval)
 
-# adding score 
-# def on_destroyed(sprite):
-#     # info.change_score_by(1)
-# sprites.on_destroyed(SpriteKind.enemy, on_destroyed)
+def on_update():
+    global arrow_img_sm 
+    if info.score()>10:
+        arrow_img_sm = arrow_img_lg
+game.on_update(on_update)
+
+def on_update2():
+    global arrow_img_lg
+    if info.score()>20:
+        arrow_img_lg = arrow_img_xl
+game.on_update(on_update2)
+
+def on_update3():
+    global arrow_img_xl
+    if info.score()>30:
+        arrow_img_xl = arrow_img_final
+game.on_update(on_update3)
+
+def on_update4():
+    def on_overlap(sprite, otherSprite):
+        info.change_life_by(-1)
+        sprite.destroy()
+    sprites.on_overlap(SpriteKind.enemy, SpriteKind.player, on_overlap)
+game.on_update(on_update4)
+     

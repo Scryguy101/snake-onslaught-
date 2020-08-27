@@ -1,20 +1,76 @@
-//  Projectiles and upgrades
-controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function on_player1_button_a_pressed() {
-    let arrow1 = sprites.createProjectileFromSprite(img`
-            . d . 
+let arrow_img_sm = img`
+               . d . 
                     d d d 
                     . e . 
                     . e . 
                     . e . 
                     1 . 1
-        `, hero, 0, -35)
+`
+let arrow_img_lg = img`
+    . . . d . . .
+    . . d d d . .
+    . d d d d d .
+    . . . e . . .
+    . . . e . . .
+    . . . e . . .
+    . . . e . . .
+    . . . e . . .
+    . . 1 . 1 . .
+    . 1 . . . 1 .
+    . . . . . . .
+    . . . . . . .
+`
+let arrow_img_xl = img`
+    . . . . . . d . . . . . .
+    . . . . . d d d . . . . .
+    . . . . d d f d d . . . .
+    . . . d d f . f d d . . .
+    . . . . d d f d d . . . .
+    . . . . . d d d . . . . .
+    . . . . . . d . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . . e . . . . . .
+    . . . . . 1 e 1 . . . . .
+    . . . . 1 b e b 1 . . . .
+    . . . 1 b . . . b 1 . . .
+    . . 1 b . . . . . b 1 . .
+`
+let arrow_img_final = img`
+    . . . . . . . . . . 5 . . . . . . . . . .
+    . . . . . . . . . 5 f 5 . . . . . . . . .
+    . . . . . . . . 5 f . f 5 . . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . 5 f . 2 . f 5 . . . . . . .
+    . . . . . . . . 5 f . f 5 . . . . . . . .
+    . . . . . . . . . 5 f 5 . . . . . . . . .
+    . . . . . . . . . e 5 e . . . . . . . . .
+    . . . . . . . . . e e e . . . . . . . . .
+    . . . . . . . . . e 2 e . . . . . . . . .
+    . . . . . . . . . 2 7 2 . . . . . . . . .
+    . . . . . . . . . e 2 e . . . . . . . . .
+    . . . . . . . . . e e e . . . . . . . . .
+    . . . . . . . . . e 2 e . . . . . . . . .
+    . . . . . . . . 1 2 7 2 1 . . . . . . . .
+    . . . . . . . 1 d e 2 e d 1 . . . . . . .
+    . . . . . . 1 d b e e e b d 1 . . . . . .
+    . . . . . 1 d b . . . . . b d 1 . . . . .
+    . . . . 1 d b . . . . . . . b d 1 . . . .
+    . . . 1 d b . . . . . . . . . b d 1 . . .
+    . . . . b . . . . . . . . . . . b . . . . `
+//  Projectiles and upgrades
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function on_player1_button_a_pressed() {
+    let arrow1 = sprites.createProjectileFromSprite(arrow_img_sm, hero, 0, -35)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
     sprite.destroy()
     otherSprite.destroy()
     info.changeScoreBy(1)
 })
-let hero : Sprite = null
 //  Scene creation
 scene.setBackgroundColor(6)
 scene.setBackgroundImage(img`
@@ -156,36 +212,38 @@ info.setLifeImage(img`
         . . . . . f . . . . .
 `)
 //  Player creation
-hero = sprites.create(img`
-        . . . . . . e e e e . . . . . d d d . . 
-            . . . . . . 1 1 . e e . . . . e d d . . 
-            . . 1 5 5 5 5 . 1 . e e e . . e e d . . 
-            . 1 5 5 5 5 5 . . 1 . . e e e e . . . . 
-            1 5 5 5 5 4 4 . . . 1 . . e e 4 . . . . 
-            1 5 5 5 5 4 f . . . . e e . 4 e 4 . . . 
-            1 5 5 5 5 4 4 . 4 4 e . 1 4 4 4 e e . . 
-            . 1 1 5 4 4 . 4 4 4 . . 4 4 4 . . e e . 
-            . . 4 4 4 . 4 4 4 . . 4 4 4 1 . . . e . 
-            7 7 4 4 4 7 7 4 . . 4 4 4 . . 1 . . e e 
-            7 7 7 7 7 7 7 7 . 4 4 4 . . . . 1 . . e 
-            7 7 7 7 7 7 7 7 7 4 4 . . . . . . 1 . e 
-            7 7 7 7 7 7 7 7 7 4 . . . . . . . . 1 e 
-            . 7 7 7 7 7 . . . . . . . . . . . . 1 e 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 7 7 7 7 . . . . . . . . . . . . . . 
-            . 7 8 8 8 7 . . . . . . . . . . . . . . 
-            . 8 8 8 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            . 8 8 . 8 8 . . . . . . . . . . . . . . 
-            e 8 8 . 8 8 e . . . . . . . . . . . . . 
-            e 8 8 . 8 8 e . . . . . . . . . . . . . 
-            e 8 8 . 8 8 e . . . . . . . . . . . . . 
-            . e e . e e . . . . . . . . . . . . . .
-    `, SpriteKind.Player)
+let hero = sprites.create(img`
+    . . . . . . . d d d d . . . . . 5 5 5 . . .
+    . . . . . . . 1 1 . d d . . . . 5 f 5 . . .
+    . . . 1 5 5 5 5 . 1 . d d d . e 5 5 5 . . .
+    . . 1 5 5 5 5 5 . . 1 . . d e e 2 . . . . .
+    . 1 5 5 5 5 4 4 . . . 1 . e e 2 4 . . . . .
+    . 1 5 5 5 5 4 f . . . . e e 2 4 d 4 . . . .
+    . 1 5 5 5 5 4 4 . 4 4 e 2 1 4 4 4 d d . . .
+    . . 1 1 5 4 4 . 4 4 4 . . 4 4 4 . . d d . .
+    . b b 4 4 4 b b 4 4 . . 4 4 4 1 . . . d . .
+    b d d 4 4 4 d d b . . 4 4 4 . . 1 . . d d .
+    b d d d d d d d d b 4 4 4 . . . . 1 . . d .
+    b d d d 2 d d d d d b 4 . . . . . . 1 . d .
+    . b d 2 5 2 d d d d b . . . . . . . . 1 d .
+    . b 2 5 5 5 2 b b b . . . . . . . . . 1 d .
+    . b d 2 5 2 d b . . . . . . . . . . . . . .
+    . b d d 2 d d b . . . . . . . . . . . . . .
+    . b d d d d d b . . . . . . . . . . . . . .
+    . b d d d d d b . . . . . . . . . . . . . .
+    . b d b b b d b . . . . . . . . . . . . . .
+    . c b b b b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    . c b b c b b c . . . . . . . . . . . . . .
+    c d b b c b b d c . . . . . . . . . . . . .
+    c d b b c b b d c . . . . . . . . . . . . .
+    c d b b c b b d c . . . . . . . . . . . . .
+    . c d d c d d c . . . . . . . . . . . . . .
+    . . c c . c c . . . . . . . . . . . . . . .
+`, SpriteKind.Player)
 hero.setPosition(80, 100)
 //  Controls
 controller.moveSprite(hero, 220, 0)
@@ -214,6 +272,33 @@ game.onUpdateInterval(1250, function on_update_interval() {
                     . . . . . . . . . . 3 . 3 . . . . . . . 
                     . . . . . . . . . . . . . . . . . . . .
         `, SpriteKind.Enemy)
-    snake.setPosition(randint(160, 0), 0)
-    snake.setVelocity(0, 25)
+    snake.setPosition(randint(152, 8), 0)
+    snake.setVelocity(0, 28)
+})
+game.onUpdate(function on_update() {
+    
+    if (info.score() > 10) {
+        arrow_img_sm = arrow_img_lg
+    }
+    
+})
+game.onUpdate(function on_update2() {
+    
+    if (info.score() > 20) {
+        arrow_img_lg = arrow_img_xl
+    }
+    
+})
+game.onUpdate(function on_update3() {
+    
+    if (info.score() > 30) {
+        arrow_img_xl = arrow_img_final
+    }
+    
+})
+game.onUpdate(function on_update4() {
+    sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function on_overlap(sprite: Sprite, otherSprite: Sprite) {
+        info.changeLifeBy(-1)
+        sprite.destroy()
+    })
 })
