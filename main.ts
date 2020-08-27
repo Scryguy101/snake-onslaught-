@@ -13,6 +13,7 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
     snake.destroy()
     arrow1.destroy()
+    info.changeScoreBy(1)
 })
 let snake : Sprite = null
 let arrow1 : Sprite = null
@@ -190,10 +191,10 @@ hero = sprites.create(img`
     `, SpriteKind.Player)
 hero.setPosition(80, 100)
 //  Controls
-controller.moveSprite(hero, 200, 0)
+controller.moveSprite(hero, 220, 0)
 hero.setFlag(SpriteFlag.StayInScreen, true)
 //  Enemies creation
-game.onUpdateInterval(1300, function on_update_interval() {
+game.onUpdateInterval(1250, function on_update_interval() {
     
     snake = sprites.create(img`
             . . . . . . . . . . . . f 5 . . . . . . 
@@ -217,6 +218,6 @@ game.onUpdateInterval(1300, function on_update_interval() {
                     . . . . . . . . . . 3 . 3 . . . . . . . 
                     . . . . . . . . . . . . . . . . . . . .
         `, SpriteKind.Enemy)
-    snake.setPosition(randint(155, 5), 0)
+    snake.setPosition(randint(160, 0), 0)
     snake.setVelocity(0, 25)
 })
